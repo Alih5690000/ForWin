@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_main.h>
 #include <windows.h>
 #include <math.h>
 
+#ifndef __WIN32
+typedef void* HINSTANCE;
+#endif
+
 SDL_FRect CenterFRect(const SDL_FRect outer, 
-    float iw, float ih)
-{
+    float iw, float ih){
     SDL_FRect result;
     result.w = iw;
     result.h = ih;
@@ -17,7 +19,7 @@ SDL_FRect CenterFRect(const SDL_FRect outer,
     return result;
 }
 
-WINAPI int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
     LPSTR lpCmdLine, int nShowCmd){
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window* window=SDL_CreateWindow("SDL",SDL_WINDOWPOS_CENTERED,
@@ -50,6 +52,7 @@ WINAPI int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             if (e.type==SDL_QUIT)
                 running=false;
         }
+
         const Uint8* keys=SDL_GetKeyboardState(NULL);
         Uint32 mouse=SDL_GetMouseState(NULL,NULL);
         if (keys[SDL_SCANCODE_W]){

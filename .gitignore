@@ -1,2 +1,4 @@
 SDL2
 build.sh
+windows.h
+.vscode
